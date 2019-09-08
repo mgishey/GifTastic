@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>GifTastic</title>
+</head>
+
+<body>
+    <div id="buttonDiv"></div>
+
+    <form id="artist-form">
+        <label>Add an artist:</label>
+        <input type="text" id="artist-input">
+        <input id="add-artist" type="submit">
+    </form>
+
+    <div id="artist-div">
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            const artistArr = ["Iron Maiden", "Slayer", "Sting", "Devo", "Snoop Dogg"];
+
+            function makeButton() {
+                for (let i = 0; i < artistArr.length; i++) {
+                    var button = $("<button>");
+                    button.attr("data-artist", artistArr[i]);
+                    button.attr("class", "artist-button");
+                    button.text(artistArr[i]);
+                    $("#buttonDiv").append(button);
+                }
+
+            }
+
+            makeButton();
+
+            // Event handler for user clicking the add-artist button
+            $("#add-artist").on("click", function (event) {
+                // Preventing the button from trying to submit the form
+                event.preventDefault();
+                // Storing the artist name
+                var inputArtist = $("#artist-input").val().trim();
+                //console.log("Input artist: " + inputArtist);
+                artistArr.push(inputArtist);
+                $("#buttonDiv").empty();
+                makeButton();
+            });
+
+
+
+
+
+            // Event listener for all button elements
+            $(".artist-button").on("click", function () {
+                console.log("button clicked");
+                var artist = $(this).attr("data-artist");
+                console.log("The artist is: " + artist);
+
+
+                // Constructing a URL to search Giphy for the name of the person who said the quote
+                var url = "https://api.giphy.com/v1/gifs/search?q="
+                var apiKey = "&api_key=FgFxekddCZONy49RPItgyQeFHyUM6NcX&limit=10"
+                var queryURL = url + artist + apiKey;
+
+
+                // Performing our AJAX GET request
+                $.ajax({
+                    url: queryURL,
+                    method: "GET"
+                })
+                    // After the data comes back from the API
+                    .then(function (response) {
+                        // Storing an array of results in the results variable
+                        var results = response.data;
+
+                        console.log("results length: " + results.length);
+                        console.log(results);
+                        // Looping over every result item
+                        for (var i = 0; i < results.length; i++) {
+                            var gifDiv = $("<div>");
+
+                            // Storing the result item's rating
+                            var rating = results[i].rating;
+                            console.log("rating: " + rating);
+
+                            // Creating a paragraph tag with the result item's rating
+                            var p = $("<p>").text("Rating: " + rating);
+
+                            // Creating an image tag
+                            var artistImage = $("<img>");
+
+                            // Giving the image tag an src attribute of a proprty pulled off the
+                            // result item
+                            artistImage.attr("src", results[i].images.fixed_height.url);
+
+                            // Appending the paragraph and personImage we created to the "gifDiv" div we created
+
+                            gifDiv.append(artistImage);
+                            gifDiv.append(p);
+
+                            // Prepending the gifDiv to the "#gifs-appear-here" div in the HTML
+                            $("#artist-div").prepend(gifDiv);
+                        }
+                    });
+            });
+
+        });
+    </script>
+</body>
+
+</html>
