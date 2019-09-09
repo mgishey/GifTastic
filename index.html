@@ -73,11 +73,19 @@
 
                                 // Creating an image tag
                                 var artistImage = $("<img>");
+                                var stillImage = results[i].images.fixed_height_still.url;
+                                var animateImage = results[i].images.fixed_height.url;
 
                                 // Giving the image tag an src attribute of a proprty pulled off the
                                 // result item
-                                artistImage.attr("src", results[i].images.fixed_height.url);
-                                artistImage.attr("class", "pause");
+                                artistImage.attr("src", stillImage);
+
+                                // Assigning attributes to be used to control still/animate
+                                artistImage.attr("data-still", stillImage);
+                                artistImage.attr("data-animate", animateImage);
+                                artistImage.attr("data-state", "still");
+                                artistImage.attr("class", "gif");
+
 
                                 // Appending the paragraph and personImage we created to the "gifDiv" div we created
 
@@ -86,9 +94,28 @@
 
                                 // Prepending the gifDiv to the "#gifs-appear-here" div in the HTML
                                 $("#artist-div").prepend(gifDiv);
+
+                                $(".gif").on("click", function () {
+                                    // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
+                                    var state = $(this).attr("data-state");
+                                    // If the clicked image's state is still, update its src attribute to what its data-animate value is.
+                                    // Then, set the image's data-state to animate
+                                    // Else set src to the data-still value
+                                    console.log("State on click: " + state);
+                                    if (state === "still") {
+                                        console.log("State is supposed to be still: " + state);
+                                        $(this).attr("src", $(this).attr("data-animate"));
+                                        $(this).attr("data-state", "animate");
+                                    } else {
+                                        console.log("State is supposed to be animated: " + state);
+                                        $(this).attr("src", $(this).attr("data-still"));
+                                        $(this).attr("data-state", "still");
+                                    }
+                                });
                             }
                         });
                 });
+
 
             }
 
@@ -103,7 +130,7 @@
                 //console.log("Input artist: " + inputArtist);
                 artistArr.push(inputArtist);
                 $("#buttonDiv").empty();
-                
+
                 makeButton();
             });
 
