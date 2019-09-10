@@ -1,26 +1,10 @@
 body { 
     background-color: lightslategray;
-    font-family: 'MetalLordRegular';
+    
     font-weight: normal;
     font-style: normal;
 }
 
-/*
-.container {
-    background: white;
-    width: 100%;
-    max-width: 960px;
-    height: 198px;
-    margin: 0 auto;
-    margin-bottom: 30px;
-}
-
-#buttonDiv {
-    float: left;
-    width: 600px;
-    height: 200px;
-}
-*/
 
 #artist-form {
     float: right;
@@ -36,20 +20,30 @@ body {
 }
 
 button {
+    font-family: 'MetalLordRegular';
+    background-color: silver;
+    border: 1 px solid;
+    color: black;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
     margin: 5px;
 }
 
 .img-div {
     float: left;
-    /*width: 33.3%;*/
     padding: 20px;
+    cursor: pointer;
 }
 
-/*
-img {
-    padding:50px;
-    float: left;
-}*/
+p {
+    font-family: 'MetalLordRegular';
+}
+
 
 
 
