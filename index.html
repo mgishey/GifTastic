@@ -4,27 +4,36 @@
 <head>
     <meta charset="utf-8">
     <title>GifTastic</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <!-- Added a link for experimental typeface-->
+    <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/metal-lord" type="text/css" />
+    <!-- Added a link to our external stylesheet-->
+    <link rel="stylesheet" href="css/style.css">
+
 </head>
 
 <body>
-    <div id="buttonDiv"></div>
-
     <form id="artist-form">
-        <label>Add an artist:</label>
+        <label>Add a Movie-Character-Star:</label>
         <input type="text" id="artist-input">
         <input id="add-artist" type="submit">
     </form>
+    <div id="buttonDiv"></div>
 
-    <div id="artist-div">
+    <div id="artist-div"></div>
 
-    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript">
 
         $(document).ready(function () {
 
-            const artistArr = ["Iron Maiden", "Slayer", "Sting", "Devo", "Snoop Dogg"];
+            const artistArr = ["The Matrix", "Keanu Reeves", "John Wick", "The Waterboy", "Rambo"];
 
             function makeButton() {
                 for (let i = 0; i < artistArr.length; i++) {
@@ -63,6 +72,7 @@
                             // Looping over every result item
                             for (var i = 0; i < results.length; i++) {
                                 var gifDiv = $("<div>");
+                                gifDiv.attr("class", "img-div");
 
                                 // Storing the result item's rating
                                 var rating = results[i].rating;
@@ -136,25 +146,6 @@
             });
         });
 
-        /*if (i = results.length - 1) {
-                                    $(".gif").on("click", function () {
-                                        // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
-                                        var state = $(this).attr("data-state");
-                                        // If the clicked image's state is still, update its src attribute to what its data-animate value is.
-                                        // Then, set the image's data-state to animate
-                                        // Else set src to the data-still value
-                                        console.log("State on click: " + state);
-                                        if (state === "still") {
-                                            console.log("State is supposed to be still: " + state);
-                                            $(this).attr("src", $(this).attr("data-animate"));
-                                            $(this).attr("data-state", "animate");
-                                        } else {
-                                            console.log("State is supposed to be animated: " + state);
-                                            $(this).attr("src", $(this).attr("data-still"));
-                                            $(this).attr("data-state", "still");
-                                        }
-                                    });
-                                }*/
     </script>
 </body>
 
